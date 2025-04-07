@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading - StockLogix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+</head>
+<body class="bg-[#1E2026] text-white">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-[#0B0E11] border-b border-gray-800 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="assets/Stock Logix-logo.jpg" alt="StockLogix Logo" class="h-8">
+                    <div class="hidden md:flex ml-10 space-x-8">
+                        <a href="index.html" class="text-gray-300 hover:text-blue-500">Home</a>
+                        <a href="market.html" class="text-gray-300 hover:text-blue-500">Market</a>
+                        <a href="trading.html" class="text-blue-500">Trading</a>
+                        <a href="watchlist.html" class="text-gray-300 hover:text-blue-500">Watchlist</a>
+                        <a href="portfolio.html" class="text-gray-300 hover:text-blue-500">Portfolio</a>
+                        <a href="prediction.html" class="text-gray-300 hover:text-blue-500">Prediction</a>
+                        <a href="news.html" class="text-gray-300 hover:text-blue-500">News</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="walletStatus" class="px-4 py-2 rounded-md bg-red-500 bg-opacity-20 text-red-500">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                            <span class="text-sm">Wallet not connected</span>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='login.html'" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Log In</button>
+                    <button onclick="window.location.href='signup.html'" class="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white">Register</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 pt-20">
+        <!-- Trading Interface -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Trading Form -->
+            <div class="lg:col-span-1">
+                <div class="bg-[#2A2D35] rounded-lg p-6">
+                    <h2 class="text-xl font-bold mb-6">Place Trade</h2>
+                    <form id="tradeForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Stock Symbol</label>
+                            <input type="text" id="symbol" required
+                                class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Trade Type</label>
+                            <select id="tradeType" required
+                                class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+                                <option value="buy">Buy</option>
+                                <option value="sell">Sell</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Quantity</label>
+                            <input type="number" id="quantity" required min="1"
+                                class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Price Type</label>
+                            <select id="priceType" required
+                                class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+                                <option value="market">Market</option>
+                                <option value="limit">Limit</option>
+                            </select>
+                        </div>
+                        <div id="limitPriceContainer" class="hidden">
+                            <label class="block text-sm font-medium mb-2">Limit Price</label>
+                            <input type="number" id="limitPrice" step="0.01"
+                                class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+                            Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Market Data -->
+            <div class="lg:col-span-2">
+                <div class="bg-[#2A2D35] rounded-lg p-6">
+                    <h2 class="text-xl font-bold mb-6">Market Data</h2>
+                    <div class="space-y-4">
+                        <div id="stockInfo" class="grid grid-cols-2 gap-4">
+                            <!-- Stock info will be populated by JavaScript -->
+                        </div>
+                        <div class="h-64">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="mt-6 bg-[#2A2D35] rounded-lg p-6">
+                    <h2 class="text-xl font-bold mb-6">Transaction History</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left bg-[#1E2026]">
+                                    <th class="py-3 px-4">Date</th>
+                                    <th class="py-3 px-4">Symbol</th>
+                                    <th class="py-3 px-4">Type</th>
+                                    <th class="py-3 px-4">Quantity</th>
+                                    <th class="py-3 px-4">Price</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4">Transaction Hash</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionHistory" class="divide-y divide-gray-700">
+                                <!-- Transaction history will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/trading.js"></script>
+</body>
+</html>
