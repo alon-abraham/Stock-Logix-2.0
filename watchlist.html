@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watchlist - StockLogix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#1E2026] text-white">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-[#0B0E11] border-b border-gray-800 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="assets/Stock Logix-logo.jpg" alt="StockLogix Logo" class="h-8">
+                    <div class="hidden md:flex ml-10 space-x-8">
+                        <a href="index.html" class="text-gray-300 hover:text-blue-500">Home</a>
+                        <a href="market.html" class="text-gray-300 hover:text-blue-500">Market</a>
+                        <a href="trading.html" class="text-gray-300 hover:text-blue-500">Trading</a>
+                        <a href="watchlist.html" class="text-blue-500">Watchlist</a>
+                        <a href="portfolio.html" class="text-gray-300 hover:text-blue-500">Portfolio</a>
+                        <a href="prediction.html" class="text-gray-300 hover:text-blue-500">Prediction</a>
+                        <a href="news.html" class="text-gray-300 hover:text-blue-500">News</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='login.html'" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Log In</button>
+                    <button onclick="window.location.href='signup.html'" class="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white">Register</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 pt-20">
+        <!-- Watchlist Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold">My Watchlist</h1>
+            <div class="flex items-center space-x-4">
+                <input type="text" id="stockInput" placeholder="Enter stock symbol..." 
+                    class="bg-[#2A2D35] border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+                <button id="addStock" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
+                    Add Stock
+                </button>
+            </div>
+        </div>
+
+        <!-- Watchlist Table -->
+        <div class="bg-[#2A2D35] rounded-lg overflow-hidden">
+            <table class="w-full">
+                <thead>
+                    <tr class="text-left bg-[#1E2026]">
+                        <th class="py-4 px-6">Symbol/Name</th>
+                        <th class="py-4 px-6">Price</th>
+                        <th class="py-4 px-6">24h Change</th>
+                        <th class="py-4 px-6">Volume</th>
+                        <th class="py-4 px-6">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="watchlistTable" class="divide-y divide-gray-700">
+                    <!-- Watchlist items will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Price Alerts Section -->
+        <div class="mt-12">
+            <h2 class="text-xl font-bold mb-6">Price Alerts</h2>
+            <div class="bg-[#2A2D35] rounded-lg p-6">
+                <p class="text-gray-400">Price alerts coming soon! Stay tuned for updates.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/watchlist.js"></script>
+</body>
+</html>
