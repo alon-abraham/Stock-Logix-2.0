@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - StockLogix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-[#1E2026] text-white">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-[#0B0E11] border-b border-gray-800 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="assets/Stock Logix-logo.jpg" alt="StockLogix Logo" class="h-8">
+                    <div class="hidden md:flex ml-10 space-x-8">
+                        <a href="index.html" class="text-gray-300 hover:text-blue-500">Dashboard</a>
+                        <a href="market.html" class="text-gray-300 hover:text-blue-500">Market</a>
+                        <a href="watchlist.html" class="text-gray-300 hover:text-blue-500">Watchlist</a>
+                        <a href="portfolio.html" class="text-blue-500">Portfolio</a>
+                        <a href="news.html" class="text-gray-300 hover:text-blue-500">News</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Log In</button>
+                    <button class="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white">Register</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- Portfolio Summary -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Total Value -->
+                <div class="stock-card">
+                    <h3 class="text-gray-400 mb-2">Portfolio Value</h3>
+                    <p class="text-3xl font-bold" id="totalValue">$0.00</p>
+                    <p class="text-sm mt-2">
+                        <span class="price-up" id="totalReturn">+0.00%</span>
+                        <span class="text-gray-400 ml-2">All Time</span>
+                    </p>
+                </div>
+                <!-- Today's Return -->
+                <div class="stock-card">
+                    <h3 class="text-gray-400 mb-2">Today's Return</h3>
+                    <p class="text-3xl font-bold" id="todayReturn">$0.00</p>
+                    <p class="text-sm mt-2">
+                        <span class="price-up" id="todayReturnPercent">+0.00%</span>
+                        <span class="text-gray-400 ml-2">Today</span>
+                    </p>
+                </div>
+                <!-- Cash Balance -->
+                <div class="stock-card">
+                    <h3 class="text-gray-400 mb-2">Cash Balance</h3>
+                    <p class="text-3xl font-bold" id="cashBalance">$0.00</p>
+                    <button class="text-blue-500 hover:text-blue-400 text-sm mt-2" onclick="addFunds()">
+                        Add Funds
+                    </button>
+                </div>
+            </div>
+
+            <!-- Portfolio Chart -->
+            <div class="bg-[#2A2D35] rounded-lg p-6 mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Portfolio Performance</h2>
+                    <div class="flex space-x-4">
+                        <button class="chart-filter active" data-range="1D">1D</button>
+                        <button class="chart-filter" data-range="1W">1W</button>
+                        <button class="chart-filter" data-range="1M">1M</button>
+                        <button class="chart-filter" data-range="3M">3M</button>
+                        <button class="chart-filter" data-range="1Y">1Y</button>
+                        <button class="chart-filter" data-range="ALL">ALL</button>
+                    </div>
+                </div>
+                <canvas id="portfolioChart" class="w-full h-64"></canvas>
+            </div>
+
+            <!-- Holdings -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Holdings</h2>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onclick="showTradeModal()">
+                        Trade
+                    </button>
+                </div>
+                <div class="bg-[#2A2D35] rounded-lg overflow-hidden">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left bg-[#1E2026]">
+                                <th class="px-6 py-3">Symbol</th>
+                                <th class="px-6 py-3">Shares</th>
+                                <th class="px-6 py-3">Avg Price</th>
+                                <th class="px-6 py-3">Current Price</th>
+                                <th class="px-6 py-3">Market Value</th>
+                                <th class="px-6 py-3">Return</th>
+                                <th class="px-6 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="holdingsTable">
+                            <!-- Holdings will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Recent Trades -->
+            <div>
+                <h2 class="text-xl font-bold mb-6">Recent Trades</h2>
+                <div class="bg-[#2A2D35] rounded-lg overflow-hidden">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left bg-[#1E2026]">
+                                <th class="px-6 py-3">Date</th>
+                                <th class="px-6 py-3">Type</th>
+                                <th class="px-6 py-3">Symbol</th>
+                                <th class="px-6 py-3">Shares</th>
+                                <th class="px-6 py-3">Price</th>
+                                <th class="px-6 py-3">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradesTable">
+                            <!-- Trades will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Trade Modal -->
+    <div id="tradeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-[#2A2D35] rounded-lg p-6 w-full max-w-md">
+            <h2 class="text-xl font-bold mb-4">Trade Stock</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-400 mb-2">Symbol</label>
+                    <input type="text" id="tradeSymbol" class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2">
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-2">Type</label>
+                    <select id="tradeType" class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2">
+                        <option value="buy">Buy</option>
+                        <option value="sell">Sell</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-2">Shares</label>
+                    <input type="number" id="tradeShares" class="w-full bg-[#1E2026] border border-gray-700 rounded-md px-4 py-2">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button class="text-gray-400 hover:text-white" onclick="hideTradeModal()">Cancel</button>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" onclick="executeTrade()">
+                        Execute Trade
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/portfolio.js"></script>
+</body>
+</html>
