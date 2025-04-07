@@ -4,7 +4,7 @@ A modern web application for real-time stock market tracking, analysis, and trad
 
 ## Features ✨
 
-- **Real-Time Stock Data**: Live stock prices and market data powered by Twelve Data API
+- **Real-Time Stock Data**: Live stock prices and market data Powered by Twelve Data API
 - **Interactive Market Page**: View and search stocks with dynamic price updates
 - **Trading Simulation**: Practice trading with virtual money
 - **Stock Analysis**: Technical analysis and price predictions
@@ -14,7 +14,7 @@ A modern web application for real-time stock market tracking, analysis, and trad
 
 - **Frontend**: HTML, JavaScript, Tailwind CSS
 - **Backend**: Python, Flask
-- **APIs**: Twelve Data API for real-time market data
+- **APIs**: Twelve Data APIs for real-time market data
 - **Data Analysis**: Machine Learning models for price predictions
 
 ## Getting Started 🚀
@@ -29,7 +29,7 @@ A modern web application for real-time stock market tracking, analysis, and trad
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/stock-logix-2.0.git
+git clone https://github.com/alon-abraham/stock-logix-2.0.git
 cd stock-logix-2.0
 ```
 
