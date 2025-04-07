@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market - StockLogix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-[#1E2026] text-white">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-[#0B0E11] border-b border-gray-800 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="assets/Stock Logix-logo.jpg" alt="StockLogix Logo" class="h-8">
+                    <div class="hidden md:flex ml-10 space-x-8">
+                        <a href="index.html" class="text-gray-300 hover:text-blue-500">Home</a>
+                        <a href="market.html" class="text-blue-500">Market</a>
+                        <a href="trading.html" class="text-gray-300 hover:text-blue-500">Trading</a>
+                        <a href="watchlist.html" class="text-gray-300 hover:text-blue-500">Watchlist</a>
+                        <a href="portfolio.html" class="text-gray-300 hover:text-blue-500">Portfolio</a>
+                        <a href="prediction.html" class="text-gray-300 hover:text-blue-500">Prediction</a>
+                        <a href="news.html" class="text-gray-300 hover:text-blue-500">News</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='login.html'" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Log In</button>
+                    <button onclick="window.location.href='signup.html'" class="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white">Register</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- Market Search -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="flex flex-col space-y-4">
+                <div class="flex items-center space-x-4">
+                    <input type="text" id="stockSearch" placeholder="Search stocks (e.g., AAPL, MSFT, GOOGL)..." class="flex-1 bg-[#2A2D35] border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500">
+                    <button id="searchButton" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">Search</button>
+                </div>
+                <!-- Search Results -->
+                <div id="searchResults" class="hidden">
+                    <div class="stock-card">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 id="stockSymbol" class="font-semibold">--</h3>
+                                <p id="stockName" class="text-sm text-gray-400">--</p>
+                                <p id="stockPrice" class="text-2xl font-bold mt-2">--</p>
+                            </div>
+                            <div class="text-right">
+                                <p id="stockChange" class="text-lg">--</p>
+                                <p id="stockVolume" class="text-sm text-gray-400 mt-2">--</p>
+                                <button id="addToWatchlist" class="mt-2 text-blue-500 hover:text-blue-400 text-sm">
+                                    Add to Watchlist
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-4 h-[200px]">
+                            <canvas id="stockChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Sectors -->
+        <section class="container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold mb-6">Market Sectors</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="sectorPerformance">
+                <!-- Sector data will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Top Gainers & Losers -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Top Gainers -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6">Top Gainers</h2>
+                    <div id="topGainers" class="space-y-4">
+                        <!-- Top gainers will be populated by JavaScript -->
+                    </div>
+                </div>
+                <!-- Top Losers -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6">Top Losers</h2>
+                    <div id="topLosers" class="space-y-4">
+                        <!-- Top losers will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/market.js"></script>
+</body>
+</html>
