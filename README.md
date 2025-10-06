@@ -108,7 +108,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments 🙏
 
-- [Twelve Data](https://twelvedata.com/) for providing market data
+- [Yahoo Finance](https://finance.yahoo.com/) for providing market data
 - [Tailwind CSS](https://tailwindcss.com/) for the UI framework
 - [Flask](https://flask.palletsprojects.com/) for the backend framework
 
